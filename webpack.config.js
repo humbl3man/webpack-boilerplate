@@ -1,6 +1,7 @@
 /* eslint-disable global-require */
 
 const path = require('path');
+const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ExtraneousFileCleanupPlugin = require('webpack-extraneous-file-cleanup-plugin');
 
@@ -89,6 +90,15 @@ module.exports = {
 			extensions: ['.js'],
 			minBytes: 10000,
 			paths: ['styles']
+		}),
+		new webpack.optimize.UglifyJsPlugin({
+			compress: {
+				warnings: false
+			},
+			output: {
+				comments: false
+			},
+			sourceMap: true
 		})
 	],
 	externals: {
