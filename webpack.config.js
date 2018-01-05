@@ -10,6 +10,7 @@ const extractSass = new ExtractTextPlugin({
 	disable: false
 });
 
+const nodeEnv = process.env.NODE_ENV || 'production';
 const scriptsPath = path.resolve(__dirname, 'src/scripts');
 const stylesPath = path.resolve(__dirname, 'src/styles');
 const outputPath = path.resolve(__dirname, 'dist');
@@ -90,6 +91,9 @@ module.exports = {
 			extensions: ['.js'],
 			minBytes: 10000,
 			paths: ['styles']
+		}),
+		new webpack.DefinePlugin({
+			'process.env': { NODE_ENV: JSON.stringify(nodeEnv) }
 		}),
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {
